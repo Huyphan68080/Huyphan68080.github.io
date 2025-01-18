@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giới thiệu bản thân</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Thêm Font Awesome -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('{{ url_for("static", filename="background.jpg") }}'); /* Thay đổi nền bằng ảnh */
+            background-size: cover; /* Đảm bảo ảnh phủ kín toàn bộ nền */
+            background-position: center; /* Căn giữa ảnh */
+        }
+        header {
+            background: transparent; /* Loại bỏ màu nền đen cho header */
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Căn đều các phần tử */
+            box-shadow: none; /* Không có bóng đổ */
+        }
+        .header-left {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Căn giữa avatar và text theo chiều dọc */
+            margin-right: 20px; /* Khoảng cách giữa phần bên trái và GIF */
+            position: relative; /* Để có thể đặt tích xanh bên cạnh avatar */
+        }
+        .avatar {
+            width: 100px; /* Kích thước avatar */
+            height: 100px; /* Kích thước avatar */
+            border-radius: 50%; /* Bo góc thành hình tròn */
+            border: 5px solid #fff; /* Viền trắng xung quanh avatar */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Bóng đổ */
+            margin-bottom: 10px; /* Khoảng cách giữa avatar và h1 */
+        }
+        h1 {
+            margin: 0; /* Xóa khoảng cách mặc định */
+            text-align: center; /* Căn giữa dòng chữ */
+        }
+        .gif {
+            width: 250px; /* Tăng kích thước GIF */
+            height: auto;
+            margin-top: 20px; /* Thêm khoảng cách phía trên GIF */
+            border: 5px solid #fff; /* Thêm viền trắng cho GIF */
+            border-radius: 10px; /* Bo góc cho viền */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Bóng đổ cho GIF */
+        }
+        section {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8); /* Sử dụng màu trắng với độ trong suốt */
+            margin: 20px;
+            border-radius: 8px;
+            border: 2px solid #333; /* Viền xám cho các phần */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: relative; /* Để có thể định vị viền dưới */
+        }
+        section::after {
+            content: ""; /* Tạo một phần tử giả để thêm viền */
+            display: block;
+            width: 100%; /* Độ rộng bằng với phần */
+            height: 2px; /* Độ dày viền */
+            background: #000; /* Màu đen cho viền dưới */
+            position: absolute;
+            bottom: 0; /* Đặt ở dưới cùng */
+            left: 0; /* Căn trái */
+        }
+        h2 {
+            color: #343a40; /* Màu chữ chính */
+            padding-bottom: 5px;
+        }
+        ul {
+            list-style-type: square; /* Kiểu danh sách vuông */
+            padding-left: 20px;
+        }
+        p {
+            line-height: 1.6; /* Khoảng cách dòng cho dễ đọc */
+        }
+        .social-links {
+            display: flex; /* Sử dụng flexbox để căn chỉnh các liên kết */
+            gap: 10px; /* Khoảng cách giữa các liên kết */
+        }
+        .social-links a {
+            text-decoration: none; /* Xóa gạch chân */
+            color: #333; /* Màu chữ cho các liên kết */
+            font-size: 24px; /* Kích thước biểu tượng */
+        }
+        .loader {
+            border: 16px solid #f3f3f3; /* Màu nền của vòng tròn */
+            border-top: 16px solid #3498db; /* Màu cho phần trên cùng của vòng tròn */
+            border-radius: 50%; /* Bo tròn */
+            width: 60px; /* Kích thước vòng tròn */
+            height: 60px; /* Kích thước vòng tròn */
+            animation: spin 2s linear infinite; /* Tốc độ xoay */
+            position: fixed; /* Đặt ở vị trí cố định */
+            left: 50%; /* Căn giữa theo chiều ngang */
+            top: 50%; /* Căn giữa theo chiều dọc */
+            margin-left: -30px; /* Để căn giữa */
+            margin-top: -30px; /* Để căn giữa */
+            z-index: 1000; /* Đặt lên trên cùng */
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="loader" id="loader"></div> <!-- Phần tử loader -->
+
+<header>
+    <div class="header-left">
+        <div style="position: relative;">
+            <img src="{{ url_for('static', filename='avatar.jpg') }}" alt="Avatar" class="avatar">
+            <img src="{{ url_for('static', filename='verified.png') }}" alt="Verified" style="position: absolute; top: 70%; left: 70%; width: 30px; height: 30px;"> <!-- Biểu tượng tích xanh -->
+        </div>
+        <h1>Xin chào, tôi là Huy</h1>
+    </div>
+    <img src="{{ url_for('static', filename='my_gif.gif') }}" alt="Giới thiệu" class="gif"> <!-- Thêm GIF vào cạnh dòng text -->
+</header>
+
+<section>
+    <h2>Giới thiệu</h2>
+    <p>Tôi là lập trình viên với đam mê trong việc phát triển phần mềm. Tôi đang sống tại Thành Phố Hồ Chí Minh, với mục tiêu trở thành một lập trình viên trong lĩnh vực web.</p>
+</section>
+
+<section>
+    <h2>Kỹ năng</h2>
+    <ul>
+        <li>JavaScript</li>
+        <li>HTML/CSS</li>
+        <li>Python</li>
+        <li>C#</li>
+        <li>C++</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Nơi học</h2>
+    <p>Tôi đang học tại Trung Cấp Nghề Củ Chi.</p>
+</section>
+
+<section>
+    <h2>Dự án nổi bật</h2>
+    <ul>
+        <li>Web Gmail - Gửi được Thư</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Sở thích</h2>
+    <p>Tôi thích Cầu lông, Lập Trình web.</p>
+</section>
+
+<section>
+    <h2>Ngôn ngữ</h2>
+    <p>Tôi thông thạo tiếng Việt và tiếng Anh.</p>
+</section>
+
+<section>
+    <h2>Liên hệ</h2>
+    <p>Email: huyphan68080@gmail.com</p>
+    <p>Số điện thoại: 0764094520</p>
+    <p>Địa chỉ: Số nhà 02, Đường 223, Ấp 2, Xã Hòa Phú, Huyện Củ Chi, Thành Phố Hồ Chí Minh</p>
+    <div class="social-links">
+        <p>GitHub: <a href="https://github.com/Huyphan68080" target="_blank"><i class="fab fa-github"></i></a></p>
+        <p>Facebook: <a href="https://www.facebook.com/hphan.media.vn?mibextid=ZbWKwL" target="_blank"><i class="fab fa-facebook"></i></a></p>
+    </div>
+</section>
+
+<script>
+    window.onload = function() {
+        document.getElementById('loader').style.display = 'none'; // Ẩn loader khi trang đã tải
+    };
+</script>
+
+</body>
+</html>
